@@ -1,6 +1,9 @@
 import logo from "../../assets/images/acuttis-logo.png";
 
 function Navbar() {
+
+  //estou utilizando uma navbar por motivos esteticos e para explorar um pouco do materialize
+  //
   return (
     <div className="navbar-fixed app-navbar">
       <nav className="blue lighten-3">
