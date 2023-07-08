@@ -1,13 +1,10 @@
+.app-logo {
+  padding: 4px;
+}
 
 .app-inputs {
   gap: 5px;
   padding: 50px;
-}
-
-.app-inputs > .container > button {
-  width: 100%;
-
-  justify-content: space-around;
 }
 
 .app-input-group {
