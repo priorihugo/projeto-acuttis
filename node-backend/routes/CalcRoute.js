@@ -1,11 +1,11 @@
 
 
 import express from "express";
-import Calc from '../controllers/Calc'
+import {CalcValue} from '../controllers/CalcValue.js'
 
 
 const route = express.Router()
 
-route.get('/' , Calc)
+route.get('/' , CalcValue)
 
 export default route;

@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import ControlledInput from "./ControlledInput";
+import axios from "axios";
 
 function Inputs() {
-
   //a biblioteca react-hook-forms permite centralizar em um unico objeto
   //diversor inputs de um formulario e fazer integração para validação com outras bibliotecas
   //como zod e yuo
@@ -18,6 +18,8 @@ function Inputs() {
     const inputValues = getValues();
 
     console.log("values ", inputValues);
+    const res = await axios.get("http://localhost:8888/", { params: data });
+    console.log("response ", res);
   };
 
   return (
@@ -51,7 +53,7 @@ function Inputs() {
           {
             //divider
           }
-          <hr className="solid"/>
+          <hr className="solid" />
           {
             //neste app input group estamos coletando as faixas de horario
           }
