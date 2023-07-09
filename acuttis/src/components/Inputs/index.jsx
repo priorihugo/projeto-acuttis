@@ -19,7 +19,7 @@ function Inputs() {
 
     console.log("values ", inputValues);
     const res = await axios.get("http://localhost:8888/", { params: data });
-    console.log("response ", res);
+    console.log("response ", res.data);
   };
 
   return (

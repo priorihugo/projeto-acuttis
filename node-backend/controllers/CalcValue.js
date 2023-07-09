@@ -1,7 +1,14 @@
 //Auxiliares
 export const toMinutes = (data) => {
-  const [horas, minutos] = data.split(":");
-  return Number(horas) * 60 + Number(minutos);
+  const regexHorario = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
+
+  if (regexHorario.test(data)) {
+    const [horas, minutos] = data.split(":");
+    return Number(horas) * 60 + Number(minutos);
+  }
+  else{
+    throw 'Formato de data invalido'
+  }
 };
 
 export const joinObjects = (obj1, obj2) => {
@@ -23,7 +30,11 @@ const faixasHoras = [
   { inicio: "05:00", fim: "22:00" },
   { inicio: "22:00", fim: "24:00" },
 ];
+
 function calcularMinutosPorFaixaHorario(inicio, fim) {
+  //caso o horario de inicio seja menor que o de fim, isto é por exemplo inicio: 23:00 e fim as 4:00
+  //fazemos o calculo em dois momentos
+
   if (inicio > fim) {
     const f1 = minutosPorFaixaHorario(inicio, toMinutes("24:00"));
     const f2 = minutosPorFaixaHorario(toMinutes("00:00"), fim);
@@ -66,31 +77,33 @@ function minutosPorFaixaHorario(inicio, fim) {
         fimVal - inicioVal;
     }
   }
-
   return resultado;
 }
 
 export const CalcValue = (request, response) => {
-  console.log("request ", request.query);
-  const inicio = toMinutes(request.query.inicio);
-  const fim = toMinutes(request.query.fim);
-  const valorDia = request.query.dia_val;
-  const valorNoite = request.query.noite_val;
+  try {
+    const inicio = toMinutes(request.query.inicio);
+    const fim = toMinutes(request.query.fim);
+    const valorDia = request.query.dia_val;
+    const valorNoite = request.query.noite_val;
 
-  const faixas = calcularMinutosPorFaixaHorario(inicio, fim);
+    const faixas = calcularMinutosPorFaixaHorario(inicio, fim);
 
-  const valor =
-    (faixas["00:00-05:00"] / 60) * valorNoite +
-    (faixas["05:00-22:00"] / 60) * valorDia +
-    (faixas["22:00-24:00"] / 60) * valorNoite;
+    //TODO:: dinamizar esta parte para poder construir objetos de maneira mais dinamica
+    const valor =
+      (faixas["00:00-05:00"] / 60) * valorNoite +
+      (faixas["05:00-22:00"] / 60) * valorDia +
+      (faixas["22:00-24:00"] / 60) * valorNoite;
 
-  const res = {
-    message: "O valor calculado foi ",
-    valor: valor,
-  };
+    const res = {
+      "00:00-05:00": (faixas["00:00-05:00"] / 60) * valorNoite,
+      "05:00-22:00": (faixas["05:00-22:00"] / 60) * valorDia,
+      "22:00-24:00": (faixas["22:00-24:00"] / 60) * valorNoite,
+      valorTotal: valor,
+    };
 
-  //caso o horario de inicio seja menor que o de fim, isto é por exemplo inicio: 23:00 e fim as 4:00
-  //fazemos o calculo em dois momentos
-
-  return response.status(200).json(res);
+    return response.status(200).json(res);
+  } catch (err) {
+    return response.status(500).json(err);
+  }
 };
