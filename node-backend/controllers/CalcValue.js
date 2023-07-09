@@ -87,6 +87,10 @@ export const CalcValue = (request, response) => {
     const valorDia = request.query.dia_val;
     const valorNoite = request.query.noite_val;
 
+    if(inicio < 0 || fim < 0 || valorDia < 0 || valorNoite < 0){
+        return response.status(500).json("ERRO INTERNO: Formatos Inválidos");
+    }
+
     const faixas = calcularMinutosPorFaixaHorario(inicio, fim);
 
     //TODO:: dinamizar esta parte para poder construir objetos de maneira mais dinamica
