@@ -38,14 +38,14 @@ function Inputs() {
                 errors={errors}
                 label={"Diurno (de 5:00h as 22:00h)"}
                 name={"dia_val"}
-                type={"time"}
+                type={"number"}
               />
               <ControlledInput
                 register={register}
                 errors={errors}
                 label={"Noturno (de 22:00h as 5:00h)"}
                 name={"noite_val"}
-                type={"time"}
+                type={"number"}
               />
             </div>
           </div>
