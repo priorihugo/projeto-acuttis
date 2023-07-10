@@ -42,6 +42,11 @@ function Inputs() {
       setVisible(true);
     } catch (err) {
       console.log("err ", err?.message);
+      if (err.message.toLowerCase() == "Network Error".toLowerCase()) {
+        M.toast({ html: "Erro de conexão, servidor inacessível" });
+      } else {
+        M.toast({ html: err?.message });
+      }
     } finally {
       setIsLoading(false);
     }
