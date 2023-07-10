@@ -67,7 +67,7 @@ function ControlledInput({ register, errors, name, label, type }) {
       <input
         {...register(name, {
           required: "Campo obrigatório",
-          validate: (v) => parseInt(v) > 0 || "Número deve ser positivo",
+          validate: (v) => parseInt(v) >= 0 || "Número deve ser positivo",
         })}
         type={type}
       />

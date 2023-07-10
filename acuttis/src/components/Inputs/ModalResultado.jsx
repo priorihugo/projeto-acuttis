@@ -1,25 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-function ModalResultado({ visivel, setVisivel, displayResponse }) {
-  //optei por fazer esta captura no proprio
-  //modal para que ele sempre venha com um objeto de response completo
-  //respeitando o ciclo de vida do react
-  useEffect(() => {
-    //captura o modal no DOM
-    const modalResultado = document.getElementById("modal1");
-    const instancia = M.Modal.getInstance(modalResultado);
-
-    if (visivel) {
-      //se visivel
-      //Abre o modal
-      instancia.open();
-    } else {
-      instancia.close();
-    }
-  });
-
+function ModalResultado({ ref, displayResponse }) {
   return (
-    <div id="modal1" className="modal">
+    <div ref={ref} id="modal1" className="modal">
       <div className="modal-content">
         <h4>Resultado</h4>
         <h6>
@@ -43,23 +26,11 @@ function ModalResultado({ visivel, setVisivel, displayResponse }) {
         <h4>Total : R$ {Number(displayResponse?.valorTotal).toFixed(2)}</h4>
       </div>
       <div className="modal-footer">
-        <a
-          href="#!"
-          onClick={() => {
-            setVisivel(false);
-          }}
-          className="waves-effect waves-blue btn-flat"
-        >
+        <a href="#!" className="waves-effect waves-blue btn-flat modal-close">
           Entendido
         </a>
 
-        <a
-          href="#!"
-          onClick={() => {
-            setVisivel(false);
-          }}
-          className="waves-effect waves-green btn-flat"
-        >
+        <a href="#!" className="waves-effect waves-green btn-flat modal-close">
           Salvar Resultado
         </a>
       </div>

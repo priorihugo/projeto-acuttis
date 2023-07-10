@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import ControlledInput from "./ControlledInput";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import ModalResultado from "./ModalResultado";
 import M from "materialize-css";
 
@@ -9,11 +9,6 @@ function Inputs() {
   //a biblioteca react-hook-forms permite centralizar em um unico objeto
   //diversor inputs de um formulario e fazer integração para validação com outras bibliotecas
   //como zod e yuo
-
-  useEffect(() => {
-    var modal = document.querySelectorAll(".modal");
-  }, []);
-
   const {
     control,
     register,
@@ -24,22 +19,37 @@ function Inputs() {
   } = useForm();
 
   const [displayResponse, setDisplayResponse] = useState({});
-  const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [thisModal, setThisModal] = useState();
+
+  const modalRef = useRef();
+
+  useLayoutEffect(() => {
+    //este bug foi chatinho de arrumar
+    //o que este codigo faz e que depois da renderização dos inputs
+    //a gente reinicia os modais e recaptura
+    //isto foi feito devido a perda de referencia entre renderizações
+
+    console.log("loading inputs");
+    const modalResultado = document.getElementById("modal1");
+    const modalInstances = M.Modal.init(modalResultado);
+
+    if (modalInstances !== undefined) {
+      setThisModal(modalInstances);
+    }
+  }, []);
 
   const handleConfirm = async (data) => {
-    console.log("data ", data);
+    setIsLoading(true);
     const inputValues = getValues();
 
-    console.log("values ", inputValues);
     try {
-      setIsLoading(true);
       const res = await axios.get("http://localhost:8888/", { params: data });
 
-      console.log("response ", res.data);
-
       setDisplayResponse(res.data);
-      setVisible(true);
+
+      //abre o modal
+      thisModal?.open();
     } catch (err) {
       console.log("err ", err?.message);
       if (err.message.toLowerCase() == "Network Error".toLowerCase()) {
@@ -115,7 +125,7 @@ function Inputs() {
             //
           }
           <a
-            className="btn app-btn waves-effect waves-light"
+            className="btn app-btn waves-effect waves-light modal-trigger"
             href="#modal1"
             type="button"
             onClick={handleSubmit(handleConfirm)}
@@ -124,11 +134,8 @@ function Inputs() {
           </a>
         </form>
       </div>
-      <ModalResultado
-        displayResponse={displayResponse}
-        visivel={visible}
-        setVisivel={setVisible}
-      />
+
+      <ModalResultado ref={modalRef} displayResponse={displayResponse} />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../../assets/images/acuttis-logo.png";
 
 function Navbar() {
@@ -8,17 +9,21 @@ function Navbar() {
       <nav className="blue lighten-3">
         <div className="container">
           <div className="nav-wrapper ">
-            <a href="#" className="brand-logo black-text">
+            <Link
+              to={`/`}
+              style={{ textDecoration: "none" }}
+              className="brand-logo black-text"
+            >
               <img src={logo} />
-            </a>
+            </Link>
             <ul
               id="nav-mobile"
               className="right hide-on-med-and-down black-text"
             >
               <li>
-                <a className="black-text" href="badges.html">
+                <Link to={`/history/`} style={{ textDecoration: "none" }}>
                   Histórico
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -5,18 +5,17 @@ import "./App.css";
 import "./index.css";
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css";
+import { BrowserRouter } from "react-router-dom";
 
-
+//inicializa elemetos do materialize
 document.addEventListener("DOMContentLoaded", function () {
   var parallax = document.querySelectorAll(".parallax");
   var parallaxInstances = M.Parallax.init(parallax);
 
   var modal = document.querySelectorAll(".modal");
-
-  console.log('modais ' , modal)
-  
   var modalInstances = M.Modal.init(modal);
 
+  console.log('modais ' , modal)
   console.log(modalInstances)
 
   M.updateTextFields();
@@ -24,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+     <BrowserRouter>
+       <App/>
+      </BrowserRouter>
   </React.StrictMode>
 );
