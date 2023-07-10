@@ -12,7 +12,7 @@ function Navbar() {
             <Link
               to={`/`}
               style={{ textDecoration: "none" }}
-              className="brand-logo black-text"
+              className="brand-logo black-text "
             >
               <img src={logo} />
             </Link>
@@ -21,7 +21,7 @@ function Navbar() {
               className="right hide-on-med-and-down black-text"
             >
               <li>
-                <Link to={`/history/`} style={{ textDecoration: "none" }}>
+                <Link to={`/history/`} style={{ textDecoration: "none" , fontSize: '2rem' }}>
                   Histórico
                 </Link>
               </li>

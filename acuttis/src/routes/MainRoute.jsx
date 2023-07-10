@@ -7,7 +7,9 @@ function MainRoute() {
 
   return useRoutes([
     { path: "/", element: <Inputs /> },
-    { path: "/history", element: <History /> },
+    { path: "/acuttis-frontend/", element: <Inputs /> },
+    { path: "/history/", element: <History /> },
+    { path: "/acuttis-frontend/history/", element: <History /> },
   ]);
 }
 

@@ -44,7 +44,15 @@ function Inputs() {
     const inputValues = getValues();
 
     try {
-      const res = await axios.get("http://localhost:8888/", { params: data });
+      //http://localhost:8888/
+      //"http://acuttis-backend.vercel.app/
+      //https://acurris-render-backend.onrender.com/
+
+      //utilizamos nossa api hospedada no render gratuitamente
+      //escrevi acuttis errado :(
+
+      const res = await axios.get("https://acurris-render-backend.onrender.com/calcula/", { params: data });
+      console.log("res ", res);
 
       setDisplayResponse(res.data);
 
@@ -60,6 +68,10 @@ function Inputs() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const closeModal = () => {
+    thisModal?.close();
   };
 
   return (
@@ -125,7 +137,7 @@ function Inputs() {
             //
           }
           <a
-            className="btn app-btn waves-effect waves-light modal-trigger"
+            className="btn app-btn waves-effect waves-light"
             href="#modal1"
             type="button"
             onClick={handleSubmit(handleConfirm)}
@@ -135,7 +147,7 @@ function Inputs() {
         </form>
       </div>
 
-      <ModalResultado ref={modalRef} displayResponse={displayResponse} />
+      <ModalResultado close={closeModal} displayResponse={displayResponse} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-function ModalResultado({ ref, displayResponse }) {
+function ModalResultado({ close, displayResponse }) {
   return (
-    <div ref={ref} id="modal1" className="modal">
+    <div id="modal1" className="modal">
       <div className="modal-content">
         <h4>Resultado</h4>
         <h6>
@@ -26,13 +26,18 @@ function ModalResultado({ ref, displayResponse }) {
         <h4>Total : R$ {Number(displayResponse?.valorTotal).toFixed(2)}</h4>
       </div>
       <div className="modal-footer">
-        <a href="#!" className="waves-effect waves-blue btn-flat modal-close">
+        <a
+          onClick={() => close()}
+          href="#!"
+          className="waves-effect waves-blue btn-flat modal-close"
+        >
           Entendido
         </a>
 
-        <a href="#!" className="waves-effect waves-green btn-flat modal-close">
+        {/*<a onClick={()=>close()} href="#!" className="waves-effect waves-green btn-flat modal-close">
           Salvar Resultado
         </a>
+        */}
       </div>
     </div>
   );
