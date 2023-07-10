@@ -110,7 +110,7 @@ function Inputs() {
             //
           }
           <a
-            className="btn waves-effect waves-light"
+            className="btn app-btn waves-effect waves-light"
             href="#modal1"
             type="button"
             onClick={handleSubmit(handleConfirm)}

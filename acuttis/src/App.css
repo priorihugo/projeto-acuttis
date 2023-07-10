@@ -7,6 +7,11 @@
   padding: 50px;
 }
 
+.app-btn {
+  display: flex;
+  width: 100%;
+}
+
 .app-modal {
   display: flex;
   width: 100vw;
@@ -43,7 +48,7 @@
   width: 100%;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .app-input-group {
     display: flex;
     flex-direction: column;

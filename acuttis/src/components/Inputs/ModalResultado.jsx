@@ -23,8 +23,8 @@ function ModalResultado({ visivel, setVisivel, displayResponse }) {
       <div className="modal-content">
         <h4>Resultado</h4>
         <h6>
-          Total de Horas do periodo Noturno:
-          {Number(displayResponse?.noturno?.totalHoras).toFixed(2)}
+          Total de horas do periodo Noturno:{" "}
+          {Math.round(Number(displayResponse?.noturno?.totalHoras))}
         </h6>
         <h6>
           Valor pelas horas do periodo Noturno: R$
@@ -32,8 +32,8 @@ function ModalResultado({ visivel, setVisivel, displayResponse }) {
         </h6>
 
         <h6>
-          Total de Horas do periodo Diurno:
-          {Number(displayResponse?.diurno?.totalHoras).toFixed(2)}
+          Total de Horas do periodo Diurno:{" "}
+          {Math.round(Number(displayResponse?.diurno?.totalHoras).toFixed(2))}
         </h6>
         <h6>
           Valor pelas horas do periodo Diurno: R$
@@ -48,9 +48,19 @@ function ModalResultado({ visivel, setVisivel, displayResponse }) {
           onClick={() => {
             setVisivel(false);
           }}
+          className="waves-effect waves-blue btn-flat"
+        >
+          Entendido
+        </a>
+
+        <a
+          href="#!"
+          onClick={() => {
+            setVisivel(false);
+          }}
           className="waves-effect waves-green btn-flat"
         >
-          Agree
+          Salvar Resultado
         </a>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import logo from "../../assets/images/acuttis-logo.png";
 
 function Navbar() {
-
   //estou utilizando uma navbar por motivos esteticos e para explorar um pouco do materialize
   //
   return (
@@ -16,11 +15,6 @@ function Navbar() {
               id="nav-mobile"
               className="right hide-on-med-and-down black-text"
             >
-              <li>
-                <a className="black-text" href="#">
-                  Help
-                </a>
-              </li>
               <li>
                 <a className="black-text" href="badges.html">
                   Histórico
