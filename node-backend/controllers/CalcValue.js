@@ -1,24 +1,13 @@
 //Auxiliares
 export const toMinutes = (data) => {
-  const regexHorario = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
-
-  if (regexHorario.test(data)) {
-    const [horas, minutos] = data.split(":");
-    return Number(horas) * 60 + Number(minutos);
-  }
-  else{
-    throw 'Formato de data invalido'
-  }
+  const [horas, minutos] = data.split(":");
+  return Number(horas) * 60 + Number(minutos);
 };
 
 export const joinObjects = (obj1, obj2) => {
-  console.log("obj1 ", obj1);
-  console.log("obj2 ", obj2);
   const keys = Object.keys(obj1);
-  console.log("keys ", keys);
   let obj = {};
   for (let key of keys) {
-    console.log("key ", key);
     obj[key] = Number(obj1[key]) + Number(obj2[key]);
   }
   return obj;
@@ -87,8 +76,8 @@ export const CalcValue = (request, response) => {
     const valorDia = request.query.dia_val;
     const valorNoite = request.query.noite_val;
 
-    if(inicio < 0 || fim < 0 || valorDia < 0 || valorNoite < 0){
-        return response.status(500).json("ERRO INTERNO: Formatos Inválidos");
+    if (inicio < 0 || fim < 0 || valorDia < 0 || valorNoite < 0) {
+      return response.status(500).json("ERRO INTERNO: Formatos Inválidos");
     }
 
     const faixas = calcularMinutosPorFaixaHorario(inicio, fim);
@@ -100,9 +89,16 @@ export const CalcValue = (request, response) => {
       (faixas["22:00-24:00"] / 60) * valorNoite;
 
     const res = {
-      "00:00-05:00": (faixas["00:00-05:00"] / 60) * valorNoite,
-      "05:00-22:00": (faixas["05:00-22:00"] / 60) * valorDia,
-      "22:00-24:00": (faixas["22:00-24:00"] / 60) * valorNoite,
+      noturno: {
+        valor:
+          (faixas["00:00-05:00"] / 60) * valorNoite +
+          (faixas["22:00-24:00"] / 60) * valorNoite,
+        totalHoras: (faixas["00:00-05:00"] + faixas["22:00-24:00"]) / 60,
+      },
+      diurno: {
+        valor: (faixas["05:00-22:00"] / 60) * valorDia,
+        totalHoras: faixas["05:00-22:00"] / 60,
+      },
       valorTotal: valor,
     };
 

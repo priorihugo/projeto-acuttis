@@ -7,6 +7,18 @@
   padding: 50px;
 }
 
+.app-modal {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  position: fixed;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 .app-input-group {
   display: flex;
   flex-direction: row;
